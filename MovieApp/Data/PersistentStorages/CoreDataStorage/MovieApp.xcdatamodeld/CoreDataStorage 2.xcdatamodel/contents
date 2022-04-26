@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="MovieQueryEntity" representedClassName="MovieQueryEntity" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="query" optional="YES" attributeType="String"/>
@@ -7,6 +7,7 @@
     <entity name="MovieResponseEntity" representedClassName="MovieResponseEntity" syncable="YES" codeGenerationType="class">
         <attribute name="genre" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="overview" optional="YES" attributeType="String"/>
         <attribute name="posterPath" optional="YES" attributeType="String"/>
         <attribute name="releaseDate" optional="YES" attributeType="String"/>
@@ -26,7 +27,7 @@
     </entity>
     <elements>
         <element name="MovieQueryEntity" positionX="6913.73828125" positionY="-748.890625" width="128" height="73"/>
-        <element name="MovieResponseEntity" positionX="7183.984375" positionY="-567.76171875" width="128" height="148"/>
+        <element name="MovieResponseEntity" positionX="7183.984375" positionY="-567.76171875" width="128" height="149"/>
         <element name="MoviesRequestEntity" positionX="6822.30859375" positionY="-559.6484375" width="128" height="88"/>
         <element name="MoviesResponseEntity" positionX="6993.70703125" positionY="-578.1640625" width="128" height="103"/>
     </elements>

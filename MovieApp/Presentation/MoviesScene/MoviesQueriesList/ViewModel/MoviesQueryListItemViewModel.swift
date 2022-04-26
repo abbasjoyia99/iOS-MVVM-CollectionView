@@ -1,8 +1,8 @@
 //
 //  MoviesQueryListItemViewModel.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 25.08.19.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation

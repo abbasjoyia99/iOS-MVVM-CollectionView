@@ -1,8 +1,8 @@
 //
 //  CoreDataMoviesResponseStorage.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 05/04/2020.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation
@@ -37,6 +37,26 @@ final class CoreDataMoviesResponseStorage {
             print(error)
         }
     }
+    func updateMovie(movie: Movie) {
+        coreDataStorage.performBackgroundTask { context in
+            do {
+                
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "MovieResponseEntity")
+
+                fetchRequest.predicate = NSPredicate(format: "title = %@",argumentArray:[movie.self.title!])
+                let results = try context.fetch(fetchRequest) as? [NSManagedObject]
+                    if results?.count != 0 { // Atleast one was returned
+
+                        // In my case, I only updated the first item in results
+                        results![0].setValue(movie.isFavourite, forKey: "isFavourite")
+                    }
+
+            } catch {
+                // TODO: - Log to Crashlytics
+                debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
+            }
+        }
+    }
 }
 
 extension CoreDataMoviesResponseStorage: MoviesResponseStorage {
@@ -53,7 +73,6 @@ extension CoreDataMoviesResponseStorage: MoviesResponseStorage {
             }
         }
     }
-
     func save(response responseDto: MoviesResponseDTO, for requestDto: MoviesRequestDTO) {
         coreDataStorage.performBackgroundTask { context in
             do {
@@ -69,4 +88,5 @@ extension CoreDataMoviesResponseStorage: MoviesResponseStorage {
             }
         }
     }
+    
 }

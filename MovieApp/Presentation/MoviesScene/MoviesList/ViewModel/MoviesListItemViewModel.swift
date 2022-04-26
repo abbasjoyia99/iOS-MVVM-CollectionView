@@ -1,8 +1,8 @@
 //
 //  MoviesListItemViewModel.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 06/04/2020.
+//  Created by Developer on 14/04/2022.
 //
 // **Note**: This item view model is to display data and does not contain any domain model to prevent views accessing it
 
@@ -13,6 +13,7 @@ struct MoviesListItemViewModel: Equatable {
     let overview: String
     let releaseDate: String
     let posterImagePath: String?
+    var isFavourite: Bool?
 }
 
 extension MoviesListItemViewModel {
@@ -21,8 +22,9 @@ extension MoviesListItemViewModel {
         self.title = movie.title ?? ""
         self.posterImagePath = movie.posterPath
         self.overview = movie.overview ?? ""
+        self.isFavourite = movie.isFavourite 
         if let releaseDate = movie.releaseDate {
-            self.releaseDate = "\(NSLocalizedString("Release Date", comment: "")): \(dateFormatter.string(from: releaseDate))"
+            self.releaseDate = "\(dateFormatter.string(from: releaseDate))"
         } else {
             self.releaseDate = NSLocalizedString("To be announced", comment: "")
         }

@@ -1,15 +1,15 @@
 //
 //  MoviesListViewModel.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 01.10.18.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation
 
 struct MoviesListViewModelActions {
     /// Note: if you would need to edit movie inside Details screen and update this Movies List screen with updated movie then you would need this closure:
-    /// showMovieDetails: (Movie, @escaping (_ updated: Movie) -> Void) -> Void
+    // showMovieDetails: (Movie, @escaping (_ updated: Movie) -> Void) -> Void
     let showMovieDetails: (Movie) -> Void
     let showMovieQueriesSuggestions: (@escaping (_ didSelect: MovieQuery) -> Void) -> Void
     let closeMovieQueriesSuggestions: () -> Void
@@ -28,6 +28,8 @@ protocol MoviesListViewModelInput {
     func showQueriesSuggestions()
     func closeQueriesSuggestions()
     func didSelectItem(at index: Int)
+    func didSelectIsFavouriteItem(at index: Int)
+    
 }
 
 protocol MoviesListViewModelOutput {
@@ -158,6 +160,10 @@ extension DefaultMoviesListViewModel {
 
     func didSelectItem(at index: Int) {
         actions?.showMovieDetails(pages.movies[index])
+    }
+    func didSelectIsFavouriteItem(at index: Int) {
+        let moviesResponseCache = CoreDataMoviesResponseStorage()
+        moviesResponseCache.updateMovie(movie: pages.movies[index])
     }
 }
 

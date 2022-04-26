@@ -1,8 +1,8 @@
 //
 //  DefaultPosterImagesRepository.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 01.10.18.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation

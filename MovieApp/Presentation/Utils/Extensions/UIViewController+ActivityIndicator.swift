@@ -1,8 +1,8 @@
 //
 //  UIViewController+make.swift
-//  MoviesSearch
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 29/09/2020.
+//  Created by Developer on 14/04/2022.
 //
 
 import UIKit
@@ -13,9 +13,32 @@ extension UITableViewController {
         let style: UIActivityIndicatorView.Style
         if #available(iOS 12.0, *) {
             if self.traitCollection.userInterfaceStyle == .dark {
-                style = .white
+                style = .medium
             } else {
-                style = .gray
+                style = .medium
+            }
+        } else {
+            style = .gray
+        }
+
+        let activityIndicator = UIActivityIndicatorView(style: style)
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        activityIndicator.frame = .init(origin: .zero, size: size)
+
+        return activityIndicator
+    }
+}
+
+extension UICollectionView {
+
+    func makeActivityIndicator(size: CGSize) -> UIActivityIndicatorView {
+        let style: UIActivityIndicatorView.Style
+        if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                style = .medium
+            } else {
+                style = .medium
             }
         } else {
             style = .gray

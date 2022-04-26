@@ -1,8 +1,8 @@
 //
 //  SearchMoviesUseCase.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 22.02.19.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation

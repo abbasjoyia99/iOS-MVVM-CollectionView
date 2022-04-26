@@ -1,8 +1,8 @@
 //
 //  Movie.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 01.10.18.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation
@@ -19,6 +19,7 @@ struct Movie: Equatable, Identifiable {
     let posterPath: String?
     let overview: String?
     let releaseDate: Date?
+    var isFavourite = false
 }
 
 struct MoviesPage: Equatable {

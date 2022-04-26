@@ -1,9 +1,8 @@
 //
 //  MovieQueryUDS+Mapping.swift
-//  Data
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 12.08.19.
-//  Copyright © 2019 Oleh Kudinov. All rights reserved.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation

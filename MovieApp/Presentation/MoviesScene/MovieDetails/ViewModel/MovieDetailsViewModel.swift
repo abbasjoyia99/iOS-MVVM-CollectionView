@@ -1,9 +1,8 @@
 //
 //  MovieDetailsViewModel.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 04.08.19.
-//  Copyright (c) 2019 All rights reserved.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation

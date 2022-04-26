@@ -1,8 +1,8 @@
 //
 //  APIEndpoints.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 01.10.18.
+//  Created by Developer on 14/04/2022.
 //
 
 import Foundation
@@ -11,11 +11,16 @@ struct APIEndpoints {
     
     static func getMovies(with moviesRequestDTO: MoviesRequestDTO) -> Endpoint<MoviesResponseDTO> {
 
-        return Endpoint(path: "3/search/movie/",
+        return Endpoint(path: "3/search/movie?",
                         method: .get,
                         queryParametersEncodable: moviesRequestDTO)
     }
+    static func getMoviesList(with moviesRequestDTO: MoviesRequestDTO) -> Endpoint<MoviesResponseDTO> {
 
+        return Endpoint(path: "movie/popular?",
+                        method: .get,
+                        queryParametersEncodable: moviesRequestDTO)
+    }
     static func getMoviePoster(path: String, width: Int) -> Endpoint<Data> {
 
         let sizes = [92, 154, 185, 342, 500, 780]

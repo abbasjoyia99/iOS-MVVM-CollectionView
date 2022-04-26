@@ -1,8 +1,8 @@
 //
 //  MoviesListViewController.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 01.10.18.
+//  Created by Developer on 14/04/2022.
 //
 
 import UIKit
@@ -18,7 +18,8 @@ final class MoviesListViewController: UIViewController, StoryboardInstantiable, 
     private var viewModel: MoviesListViewModel!
     private var posterImagesRepository: PosterImagesRepository?
 
-    private var moviesTableViewController: MoviesListTableViewController?
+    private var moviesCollectionViewController: MoviesCollectionViewController?
+    
     private var searchController = UISearchController(searchResultsController: nil)
 
     // MARK: - Lifecycle
@@ -52,12 +53,12 @@ final class MoviesListViewController: UIViewController, StoryboardInstantiable, 
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == String(describing: MoviesListTableViewController.self),
-            let destinationVC = segue.destination as? MoviesListTableViewController {
-            moviesTableViewController = destinationVC
-            moviesTableViewController?.viewModel = viewModel
-            moviesTableViewController?.posterImagesRepository = posterImagesRepository
-        }
+        if segue.identifier == String(describing: MoviesCollectionViewController.self),
+                  let destinationVC = segue.destination as? MoviesCollectionViewController {
+                  moviesCollectionViewController = destinationVC
+            moviesCollectionViewController?.viewModel = viewModel
+            moviesCollectionViewController?.posterImagesRepository = posterImagesRepository
+              }
     }
 
     // MARK: - Private
@@ -74,7 +75,7 @@ final class MoviesListViewController: UIViewController, StoryboardInstantiable, 
     }
 
     private func updateItems() {
-        moviesTableViewController?.reload()
+        moviesCollectionViewController?.reload()
     }
 
     private func updateLoading(_ loading: MoviesListViewModelLoading?) {
@@ -90,8 +91,7 @@ final class MoviesListViewController: UIViewController, StoryboardInstantiable, 
             moviesListContainer.isHidden = viewModel.isEmpty
             emptyDataLabel.isHidden = !viewModel.isEmpty
         }
-
-        moviesTableViewController?.updateLoading(loading)
+        moviesCollectionViewController?.updateLoading(loading)
         updateQueriesSuggestions()
     }
 
@@ -136,6 +136,17 @@ extension MoviesListViewController {
 }
 
 extension MoviesListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let searchText = searchBar.text, !searchText.isEmpty else { return }
+        NSObject.cancelPreviousPerformRequests(
+                withTarget: self,
+                selector: #selector(MoviesListViewController.getHintsFromSearchBar),
+                object: searchBar)
+            self.perform(
+                #selector(MoviesListViewController.getHintsFromSearchBar),
+                with: searchBar,
+                afterDelay: 0.5)
+    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
         searchController.isActive = false
@@ -144,6 +155,10 @@ extension MoviesListViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.didCancelSearch()
+    }
+    @objc func getHintsFromSearchBar(_ searchBar: UISearchBar) {
+        print("Hints for searchBar: \(searchBar)")
+        viewModel.didSearch(query: searchBar.text!)
     }
 }
 

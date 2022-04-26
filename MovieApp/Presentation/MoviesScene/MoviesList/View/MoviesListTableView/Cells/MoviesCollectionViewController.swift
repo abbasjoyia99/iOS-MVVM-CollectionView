@@ -9,7 +9,7 @@ import UIKit
 
 private let reuseIdentifier = "MoviessCollectionViewCell"
 
-final class MoviesCollectionViewController: UICollectionViewController {
+final class MoviesCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,CollectionCellProtocol {
     var viewModel: MoviesListViewModel!
 
     var posterImagesRepository: PosterImagesRepository?
@@ -17,13 +17,15 @@ final class MoviesCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+                layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: self.view.frame.size.width/2, height: self.view.frame.size.width/2)
+                layout.minimumInteritemSpacing = 0
+                layout.minimumLineSpacing = 0
+                collectionView!.collectionViewLayout = layout
+        
     }
     func reload() {
-        
         collectionView.reloadData()
     }
 
@@ -65,20 +67,16 @@ final class MoviesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? MoviessCollectionViewCell else {
-            assertionFailure("Cannot dequeue reusable cell \(MoviessCollectionViewCell.self) with reuseIdentifier: \(MoviessCollectionViewCell.reuseIdentifier)")
-            return UICollectionViewCell()
-        }
-
-        cell.fill(with: viewModel.items.value[indexPath.row],
-                  posterImagesRepository: posterImagesRepository)
+         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? MoviessCollectionViewCell
+        cell!.fill(with: viewModel.items.value[indexPath.row],
+                   posterImagesRepository: posterImagesRepository,tag: indexPath.row)
 
         if indexPath.row == viewModel.items.value.count - 1 {
             viewModel.didLoadNextPage()
         }
-
+        cell?.delegate = self
     
-        return cell
+        return cell!
     }
 
     // MARK: UICollectionViewDelegate
@@ -86,7 +84,11 @@ final class MoviesCollectionViewController: UICollectionViewController {
         viewModel.didSelectItem(at: indexPath.item)
     }
      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         return CGSize(width: self.view.frame.size.width/2-40, height: 110)
+         return CGSize(width: self.view.frame.size.width/2, height: 120)
+    }
+    // MARK: - Cell Delegate
+    func didFavouriteButtonPressed(index:Int) {
+        viewModel.didSelectIsFavouriteItem(at: index)
     }
 
 }

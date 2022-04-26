@@ -1,8 +1,8 @@
 //
 //  CoreDataStorage.swift
-//  ExampleMVVM
+//  MovieApp
 //
-//  Created by Oleh Kudinov on 26/03/2020.
+//  Created by Developer on 14/04/2022.
 //
 
 import CoreData
@@ -21,7 +21,7 @@ final class CoreDataStorage {
 
     // MARK: - Core Data stack
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "CoreDataStorage")
+        let container = NSPersistentContainer(name: "MovieApp")
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 // TODO: - Log to Crashlytics
